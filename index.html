@@ -7,18 +7,23 @@
 </head>
 <body>
     <h1>Firestore Timestamp Converter</h1>
-    <p>Enter Firestore timestamp:</p>
-    <input type="text" id="timestampInput">
+    <p>Enter Firestore timestamp seconds:</p>
+    <input type="text" id="secondsInput">
+    <p>Enter Firestore timestamp nanoseconds:</p>
+    <input type="text" id="nanosecondsInput">
     <button onclick="convertTimestamp()">Convert</button>
     <p id="convertedTimestamp"></p>
 
+
     <script>
         function convertTimestamp() {
-            var timestamp = document.getElementById("timestampInput").value;
-            var date = new Date(timestamp.seconds * 1000); // Firestore timestamp is in seconds, so we multiply by 1000 to get milliseconds
-            var formattedDate = formatDate(date);
-            document.getElementById("convertedTimestamp").innerText = formattedDate;
+        var seconds = parseInt(document.getElementById("secondsInput").value);
+        var nanoseconds = parseInt(document.getElementById("nanosecondsInput").value);
+        var date = new Date(seconds * 1000 + nanoseconds / 1000000); // Convert nanoseconds to milliseconds
+        var formattedDate = formatDate(date);
+        document.getElementById("convertedTimestamp").innerText = formattedDate;
         }
+
 
         function formatDate(date) {
             var year = date.getUTCFullYear();
