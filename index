@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firestore Timestamp Converter</title>
+</head>
+<body>
+    <h1>Firestore Timestamp Converter</h1>
+    <p>Enter Firestore timestamp:</p>
+    <input type="text" id="timestampInput">
+    <button onclick="convertTimestamp()">Convert</button>
+    <p id="convertedTimestamp"></p>
+
+    <script>
+        function convertTimestamp() {
+            var timestamp = document.getElementById("timestampInput").value;
+            var date = new Date(timestamp.seconds * 1000); // Firestore timestamp is in seconds, so we multiply by 1000 to get milliseconds
+            var formattedDate = formatDate(date);
+            document.getElementById("convertedTimestamp").innerText = formattedDate;
+        }
+
+        function formatDate(date) {
+            var year = date.getUTCFullYear();
+            var month = padZero(date.getUTCMonth() + 1);
+            var day = padZero(date.getUTCDate());
+            var hours = padZero(date.getUTCHours());
+            var minutes = padZero(date.getUTCMinutes());
+            var seconds = padZero(date.getUTCSeconds());
+            return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + " UTC";
+        }
+
+        function padZero(num) {
+            return (num < 10 ? '0' : '') + num;
+        }
+    </script>
+</body>
+</html>
